@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:15
     restart: always
-    container_name: db
+    container_name: shop_db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -14,7 +14,7 @@ services:
     build: .
     env_file:
       - .env.prod
-    container_name: backend
+    container_name: shop
     command: ["/app/docker/app.sh"]
     volumes:
       - /var/www/shop/media:/app/media
