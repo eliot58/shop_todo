@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+/*Обнуление*/
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+*,
+*:before,
+*:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+:focus,
+:active {
+	outline: none;
+}
+
+a:focus,
+a:active {
+	outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+	display: block;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+	line-height: 1;
+	font-size: 16px;
+	font-weight: 400;
+	background-color: #454545;
+	font-family: 'Montserrat', sans-serif;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+	font-family: inherit;
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+ul li {
+	list-style: none;
+}
+
+img {
+	vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 400;
+}
+
+/*--------------------*/
+
+.container {
+	margin: 0px 40px;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0px;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+}
+
+nav li {
+	margin-right: 40px;
+}
+
+.exit {
+	display: flex;
+	align-items: center;
+}
+
+.exit a {
+	margin-right: 10px;
+}
+
+.nav-item__active {
+	font-weight: 600;
+	color: #4369EF;
+}
+
+.table {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border: 1px solid #939393;
+	border-radius: 24px 24px 0px 0px;
+	position: relative;
+}
+
+.col {
+	width: 100%;
+	font-weight: 500;
+	border: 1px solid #939393;
+}
+
+.head {
+	padding: 25px;
+	color: #fff;
+	text-align: center;
+	font-weight: 600;
+	font-size: 24px;
+}
+
+.tbody {
+	position: relative;
+}
+
+.dropdown-list {
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+.dropdown-list li {
+	padding: 20px;
+	text-align: center;
+}
+
+.tbody div.td {
+	padding: 10px 20px;
+	color: #fff;
+}
+
+.tbody div.td:nth-child(odd) {
+	background-color: #494949;
+}
+
+.tbody div.td.active {
+	background-color: #A8EB75;
+	color: #fff;
+	font-weight: 600;
+}
+
+
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}
+
+.popup-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	background-color: #494949;
+}
+
+.form__input {
+	border: 1px solid #939393;
+	border-radius: 8px;
+	padding: 10px;
+	margin: 20px 0px;
+}
+
+.form__input input,
+.form__input textarea {
+	width: 100%;
+	background-color: inherit;
+	color: #fff;
+}
+
+.auth__button {
+	width: 100%;
+	border: none;
+	border-radius: 12px;
+	background: #A8EB75;
+	color: #fff;
+	text-align: center;
+	padding: 10px 0px;
+	font-weight: 600;
+	font-size: 20px;
+	margin-top: 30px;
+}
+
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+
+.input-file span {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	color: rgb(255 255 255);
+	text-align: center;
+	border-radius: 4px;
+	background-color: #c3ff53;
+	line-height: 22px;
+	height: 40px;
+	padding: 10px 0px;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+ 
+.input-file input[type=file]:focus + span {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+ 
+.input-file:hover span {
+	background-color: rgb(89, 233, 118);
+}
+.input-file:active span {
+	background-color: rgb(47, 202, 75);
+}
+ 
+.input-file input[type=file]:disabled + span {
+	background-color: #eee;
+}
+
+.log {
+	padding: 5px 10px;
+	color: #fff;
+}
+
+.log:nth-child(even) {
+	background-color: #454545;
+}
+
+#snackbar {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 30px;
+	font-size: 17px;
+}
+
+#snackbar.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}

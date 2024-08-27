@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1440">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Авторизация</title>
+</head>
+<body>
+    <section style="display: flex; height: 100vh;">
+        <div style="margin: auto;">
+            <h1 style="font-size: 32px; font-weight: 600; color: #A8EB75; margin-bottom: 60px; text-align: center;">Авторизация</h1>
+            <div class="form__input" style="width: 443px;">
+                <input type="text" id="username" placeholder="Логин">
+            </div>
+            <div class="form__input" style="width: 443px;">
+                <input type="password" id="password" placeholder="Пароль">
+            </div>
+            <button class="auth__button" type="button">Войти</button>
+        </div>
+    </section>
+    <script>
+        document.querySelector('.auth__button').addEventListener('click', function() {
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Кодируем логин и пароль
+            const encodedUsername = encodeURIComponent(username);
+            const encodedPassword = encodeURIComponent(password);
+
+            // Выполняем GET-запрос
+            fetch(`http://176.62.187.250/auth.php?jsoncallback=jQuery1113007469605505475574_1676738570680&login=${encodedUsername}&passwd=${encodedPassword}`)
+                .then(response => response.text())
+                .then(data => {
+                    // Извлекаем JSON из строки
+                    const start = data.indexOf('(');
+                    const end = data.lastIndexOf(')');
+                    const jsonString = data.substring(start + 1, end);
+                    const jsonData = JSON.parse(jsonString);
+
+                    // Проверяем ответ
+                    if (jsonData.seller_code === 'empty' || jsonData.seller_name === 'empty') {
+                        alert('Неверный email или пароль');
+                    } else {
+                        // Успешная авторизация
+                        alert(`Добро пожаловать, ${jsonData.seller_name}`);
+
+                        // Здесь можно добавить логику для работы с успешной авторизацией
+                        // Например, отправить форму на сервер Django для дальнейшей обработки
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка. Попробуйте снова.');
+                });
+        });
+    </script>
+</body>
+</html>

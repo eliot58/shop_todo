@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1440">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Главная</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Логотип">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Мои заказы</a></li>
+                    <li><a class="nav-item__active" href="#">Главная</a></li>
+                </ul>
+            </nav>
+            <div class="exit">
+                <a href="">Выйти</a>
+                <img src="{% static 'img/exit.svg' %}" alt="">
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+        
+    </div>
+    <div id="snackbar">Сохранено</div>
+    <script>
+
+        function showSnack() {
+            let x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        
+    </script>
+</body>
+</html>
