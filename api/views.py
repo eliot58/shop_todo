@@ -4,6 +4,8 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from .jwt_utils import create_access_token
 from .models import Offer, Order
 from .serializers import OfferSerializer, LoginSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -44,7 +46,7 @@ class LoginView(APIView):
 
             if data['seller_code'] == 'empty' or data['seller_name'] == 'empty':
                 return Response("Invalid login or password", status=status.HTTP_403_FORBIDDEN)
-            return Response(data, status=status.HTTP_200_OK)
+            return Response({"access_token": create_access_token(data['seller_code'])}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt

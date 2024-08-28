@@ -8,37 +8,36 @@
     <title>Главная</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <img src="{% static 'img/logo.png' %}" alt="Логотип">
-            </div>
-            <!-- <nav>
-                <ul>
-                    <li><a href="#">Мои заказы</a></li>
-                    <li><a class="nav-item__active" href="#">Главная</a></li>
-                </ul>
-            </nav> -->
-            <div class="exit">
-                <a href="">Выйти</a>
-                <img src="{% static 'img/exit.svg' %}" alt="">
-            </div>
-        </header>
+    <div class="main">
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="{% static 'img/logo.png' %}" width="64" height="64" alt="Логотип">
+                </div>
+                <div class="exit">
+                    <a href="">Выйти</a>
+                    <img src="{% static 'img/exit.svg' %}" alt="">
+                </div>
+            </header>
+        </div>
+    
+        <div class="container">
+            
+        </div>
     </div>
-
-    <div class="container">
-        
+    <div class="splash">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип">
     </div>
-    <div id="snackbar">Сохранено</div>
     <script>
-
-        function showSnack() {
-            let x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        const token = localStorage.getItem('token');
+    
+        if (token) {
+            document.querySelector('.main').style.display = 'block';
+            document.querySelector('.splash').style.display = 'none';
+        } else {
+            window.location.href = '/login/';
         }
-
-        
     </script>
+    
 </body>
 </html>
