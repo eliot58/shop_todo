@@ -80,6 +80,26 @@ def invoice(request, code):
 
 
 @csrf_exempt
+def add_offer(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        t = 1 if data["name"].strip().split("\\")[0] == 'О' else 2
+        order_id = data["name"].strip().split('\\')[1]
+
+        url = f"http://176.62.187.250/offer.php?order_id={order_id}&type={t}"
+
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                print("Response data:", response.text)
+            else:
+                print("Failed to fetch data. Status code:", response.status_code)
+        except requests.exceptions.RequestException as e:
+            print("An error occurred:", e)
+    return JsonResponse({'status': 'invalid method'}, status=405)
+
+
+@csrf_exempt
 def payment_webhook(request):
     if request.method == 'POST':
         event_json = json.loads(request.body)

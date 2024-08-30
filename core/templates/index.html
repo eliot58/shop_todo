@@ -8,36 +8,129 @@
     <title>Главная</title>
 </head>
 <body>
-    <div class="main">
+    <div class="main" style="display: none;">
         <div class="container">
             <header>
                 <div class="logo">
                     <img src="{% static 'img/logo.png' %}" width="64" height="64" alt="Логотип">
                 </div>
                 <div class="exit">
-                    <a href="">Выйти</a>
+                    <a href="#" onclick="exit()">Выйти</a>
                     <img src="{% static 'img/exit.svg' %}" alt="">
                 </div>
             </header>
         </div>
     
         <div class="container">
-            
+            <div style="display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <div class="form__input" style="width: 443px; margin: 0px;">
+                        <input type="text" placeholder="Номер заказа" id="order_name">
+                    </div>
+                    <button style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Добавить</button>
+                </div>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>КП</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table_body">
+                        {% for offer in offers %}
+                        <tr>
+                            <td>{{offer.params.name}}</td>
+                            <td><a href="{{offer.file.url}}">КП</a></td>
+                            <td><button>Оплатить</button></td>
+                        </tr>
+                        {% enfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="splash">
         <img src="{% static 'img/logo.png' %}" alt="Логотип">
     </div>
     <script>
-        const token = localStorage.getItem('token');
-    
-        if (token) {
-            document.querySelector('.main').style.display = 'block';
-            document.querySelector('.splash').style.display = 'none';
-        } else {
+        document.addEventListener("DOMContentLoaded", function() {
+            const token = getCookie('token');
+
+            if (token) {
+                document.querySelector('.main').style.display = 'block';
+                document.querySelector('.splash').style.display = 'none';
+            } else {
+                window.location.href = '/login/';
+            }
+        });
+
+        function exit() {
+            deleteCookie("token");
             window.location.href = '/login/';
         }
+
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function setCookie(name, value, options = {}) {
+
+            options = {
+                path: '/',
+                ...options
+            };
+
+            if (options.expires instanceof Date) {
+                options.expires = options.expires.toUTCString();
+            }
+
+            let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+            for (let optionKey in options) {
+                updatedCookie += "; " + optionKey;
+                let optionValue = options[optionKey];
+                if (optionValue !== true) {
+                    updatedCookie += "=" + optionValue;
+                }
+            }
+
+            document.cookie = updatedCookie;
+        }
+
+        function deleteCookie(name) {
+            setCookie(name, "", {
+                'max-age': -1
+            })
+        }
+
+        async function addOffer() {
+            const data = {
+                name: document.getElementById("order_name").value
+            };
+
+            try {
+                const response = await fetch('/api/add_offer/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log('Server response:', responseData);
+                } else {
+                    console.error('Failed to fetch. Status code:', response.status);
+                }
+            } catch (error) {
+                console.error('Error occurred:', error);
+            }
+        }
     </script>
-    
 </body>
 </html>
