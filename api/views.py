@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .jwt_utils import create_access_token
+from .jwt_utils import create_access_token, decode_access_token
 from .models import Offer, Order
 from .serializers import OfferSerializer, LoginSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -50,14 +50,17 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-def invoice(request, code):
+def invoice(request):
     if request.method == "POST":
+        token =  request.COOKIES.get('token')
+        if token:
+            payload = decode_access_token(token)
         Configuration.account_id = settings.YOOKASSA_SHOP_ID
         Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
         base_url = "https://shop.todotodo.ru" if not settings.DEBUG else "http://localhost:8000"
 
-        offer = Offer.objects.get(params__sellerCode=code)
+        offer = Offer.objects.get(params__sellerCode=payload["sub"])
 
         payment_response = Payment.create({
             "amount": {
@@ -83,6 +86,9 @@ def invoice(request, code):
 def add_offer(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+        offer = Offer.objects.filter(params__name=data["name"])
+        if offer:
+            return JsonResponse({'status': 'Bad request'}, status=400)
         t = 1 if data["name"].strip().split("\\")[0] == 'О' else 2
         order_id = data["name"].strip().split('\\')[1]
 
