@@ -93,12 +93,11 @@ def add_offer(request):
 
         try:
             response = requests.get(url)
-            if response.status_code == 200:
-                print("Response data:", response.text)
-            else:
-                print("Failed to fetch data. Status code:", response.status_code)
+            if not response.status_code == 200:
+                return JsonResponse({'status': 'failed'}, status=400)
         except requests.exceptions.RequestException as e:
-            print("An error occurred:", e)
+            return JsonResponse({'status': 'failed'}, status=400)
+        return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'invalid method'}, status=405)
 
 
