@@ -25,7 +25,7 @@
         window.addEventListener("DOMContentLoaded", function() {
             const token = getCookie('token');
 
-            if (!token) {
+            if (token) {
                 window.location.href = '/';
             }
         })
