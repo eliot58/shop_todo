@@ -27,7 +27,7 @@
                     <div class="form__input" style="width: 443px; margin: 0px;">
                         <input type="text" placeholder="Номер заказа" id="order_name">
                     </div>
-                    <button style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Добавить</button>
+                    <button onclick="addOffer()" style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Добавить</button>
                 </div>
                 <table style="margin-top: 20px;">
                     <thead>
@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{offer.params.name}}</td>
                             <td><a href="{{offer.file.url}}">КП</a></td>
-                            <td><button>Оплатить</button></td>
+                            <td><button style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплатить</button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -53,6 +53,7 @@
     <div class="splash">
         <img src="{% static 'img/logo.png' %}" alt="Логотип">
     </div>
+    <div id="snackbar"></div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const token = getCookie('token');
@@ -64,6 +65,8 @@
                 window.location.href = '/login/';
             }
         });
+
+        const snackbar = document.getElementById("snackbar")
 
         function exit() {
             deleteCookie("token");
@@ -123,13 +126,22 @@
 
                 if (response.ok) {
                     const responseData = await response.json();
-                    console.log('Server response:', responseData);
+                    snackbar.textContent = "Добавлено"
+                    showSnack()
                 } else {
-                    console.error('Failed to fetch. Status code:', response.status);
+                    snackbar.textContent = "Не удалось добавить"
+                    showSnack()
                 }
             } catch (error) {
-                console.error('Error occurred:', error);
+                snackbar.textContent = "Не удалось добавить"
+                showSnack()
             }
+        }
+
+        function showSnack() {
+            let x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
 </body>
