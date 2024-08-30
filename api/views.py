@@ -50,17 +50,14 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-def invoice(request):
+def invoice(request, id):
     if request.method == "POST":
-        token =  request.COOKIES.get('token')
-        if token:
-            payload = decode_access_token(token)
         Configuration.account_id = settings.YOOKASSA_SHOP_ID
         Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
         base_url = "https://shop.todotodo.ru" if not settings.DEBUG else "http://localhost:8000"
 
-        offer = Offer.objects.get(params__sellerCode=payload["sub"])
+        offer = Offer.objects.get(id=id)
 
         payment_response = Payment.create({
             "amount": {
