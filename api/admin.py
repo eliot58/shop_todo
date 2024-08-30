@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Offer
 
 class OfferAdmin(admin.ModelAdmin):
-    list_display = ('get_seller_code', 'get_name', 'get_order_paid_status')
+    list_display = ('get_name', 'get_seller_code', 'get_order_paid_status', 'get_order_payment_id')
 
     def get_seller_code(self, obj):
         return obj.params.get('sellerCode', 'N/A')
@@ -15,5 +15,9 @@ class OfferAdmin(admin.ModelAdmin):
     def get_order_paid_status(self, obj):
         return obj.order.paid if obj.order else 'No Order'
     get_order_paid_status.short_description = 'Order Paid'
+
+    def get_order_payment_id(self, obj):
+        return obj.order.payment_id if obj.order else 'No Order'
+    get_order_payment_id.short_description = 'Payment id'
 
 admin.site.register(Offer, OfferAdmin)

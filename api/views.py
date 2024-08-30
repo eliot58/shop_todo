@@ -107,12 +107,12 @@ def payment_webhook(request):
         event_json = json.loads(request.body)
         if 'event' in event_json and event_json['event'] == 'payment.succeeded':
             payment_id = event_json['object']['id']
-            offer = get_object_or_404(Offer, payment_id=payment_id)
-            if offer.order.paid != False:
+            order = get_object_or_404(Order, payment_id=payment_id)
+            if order.paid != False:
                 return HttpResponseForbidden()
             
-            offer.order.paid = True
-            offer.save()
+            order.paid = True
+            order.save()
             return JsonResponse({'status': 'success'})
         return JsonResponse({'status': 'failed'})
     return JsonResponse({'status': 'invalid method'}, status=405)
