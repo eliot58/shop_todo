@@ -41,7 +41,7 @@
                         {% for offer in offers %}
                         <tr>
                             <td>{{offer.params.name}}</td>
-                            <td><a href="{{offer.file.url}}">файл КП</a></td>
+                            <td><a href="{{offer.file.url}}">{{offer.file.name}}</a></td>
                             {% if offer.order.paid %}
                             <td><button style="padding: 5px 20px; background-color: #ffa653; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплачено</button></td>
                             {% else %}
