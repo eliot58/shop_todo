@@ -10,7 +10,7 @@ def index(request):
     token =  request.COOKIES.get('token')
     if token:
         payload = decode_access_token(token)
-        offers = Offer.objects.filter(params__sellerCode=payload["sub"])
+        offers = Offer.objects.filter(params__sellerCode=payload["sub"]).order_by('order__paid')
     else:
         offers = []
     return render(request, 'index.html', {"offers": offers})
