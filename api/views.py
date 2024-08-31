@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .jwt_utils import create_access_token, decode_access_token
+from .jwt_utils import create_access_token
 from .models import Offer, Order
 from .serializers import OfferSerializer, LoginSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -55,7 +55,7 @@ def invoice(request, id):
         Configuration.account_id = settings.YOOKASSA_SHOP_ID
         Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
-        base_url = "https://shop.todotodo.ru" if not settings.DEBUG else "http://localhost:8000"
+        base_url = "https://shop.todotodo.ru"
 
         offer = Offer.objects.get(id=id)
 
