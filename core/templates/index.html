@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
     <title>Главная</title>
 </head>
 <body>
@@ -41,7 +42,7 @@
                         {% for offer in offers %}
                         <tr>
                             <td data-label="№">{{offer.params.name}}</td>
-                            <td data-label="КП"><a href="{{offer.file.url}}">{{offer.file.name}}</a></td>
+                            <td data-label="КП"><a href="{{offer.file.url}}">Файл</a></td>
                             {% if offer.order.paid %}
                             <td data-label="Услуга"><button style="padding: 5px 20px; background-color: #ffa653; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплачено</button></td>
                             {% else %}
