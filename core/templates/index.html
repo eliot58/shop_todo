@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1440">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Главная</title>
 </head>
@@ -12,7 +12,7 @@
         <div class="container">
             <header>
                 <div class="logo">
-                    <img src="{% static 'img/logo.png' %}" width="64" height="64" alt="Логотип">
+                    <img src="{% static 'img/logo.png' %}" width="48" height="48" alt="Логотип">
                 </div>
                 <div class="exit">
                     <a href="#" onclick="exit()">Выйти</a>
@@ -27,7 +27,7 @@
                     <div class="form__input" style="width: 443px; margin: 0px;">
                         <input type="text" placeholder="Номер заказа" id="order_name">
                     </div>
-                    <button onclick="addOffer()" style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Добавить</button>
+                    <button onclick="addOffer()" style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none; margin-left: 20px;">Добавить</button>
                 </div>
                 <table style="margin-top: 20px;">
                     <thead>
@@ -40,12 +40,12 @@
                     <tbody class="table_body">
                         {% for offer in offers %}
                         <tr>
-                            <td>{{offer.params.name}}</td>
-                            <td><a href="{{offer.file.url}}">{{offer.file.name}}</a></td>
+                            <td data-label="№">{{offer.params.name}}</td>
+                            <td data-label="КП"><a href="{{offer.file.url}}">{{offer.file.name}}</a></td>
                             {% if offer.order.paid %}
-                            <td><button style="padding: 5px 20px; background-color: #ffa653; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплачено</button></td>
+                            <td data-label="Услуга"><button style="padding: 5px 20px; background-color: #ffa653; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплачено</button></td>
                             {% else %}
-                            <td><button onclick="createInvoice('{{offer.id}}')" style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплатить</button></td>
+                            <td data-label=""><button onclick="createInvoice('{{offer.id}}')" style="padding: 5px 20px; background-color: #c3ff53; color: 939393; font-weight: 600; border-radius: 6px; border: none;">Оплатить</button></td>
                             {% endif %}
                         </tr>
                         {% endfor %}

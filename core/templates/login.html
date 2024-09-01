@@ -3,18 +3,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1440">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Авторизация</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        
+        section {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            text-align: center;
+            width: 90%;
+            max-width: 443px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #A8EB75;
+            margin-bottom: 2rem;
+        }
+
+        .form__input {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+
+        .auth__button {
+            width: 100%;
+            padding: 12px;
+            background-color: #A8EB75;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .auth__button:hover {
+            background-color: #8ccc62;
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .form__input input {
+                font-size: 0.9rem;
+            }
+
+            .auth__button {
+                padding: 10px;
+                font-size: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+
+            .auth__button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <section style="display: flex; height: 100vh;">
-        <div style="margin: auto;">
-            <h1 style="font-size: 32px; font-weight: 600; color: #A8EB75; margin-bottom: 60px; text-align: center;">Авторизация</h1>
-            <div class="form__input" style="width: 443px;">
+    <section>
+        <div class="form-container">
+            <h1>Авторизация</h1>
+            <div class="form__input">
                 <input type="text" id="username" placeholder="Логин">
             </div>
-            <div class="form__input" style="width: 443px;">
+            <div class="form__input">
                 <input type="password" id="password" placeholder="Пароль">
             </div>
             <button class="auth__button" type="button" onclick="login()">Войти</button>
